@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+PBJ_DIR="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+
+main() {
+    if ! command -v nix &>/dev/null; then
+        echo "Could not find a nix - please install this first"
+        exit 1
+    fi
+
+    mr -c mrconfig checkout
+
+    install_home_manager
+
+    symlink_all_the_things
+
+    echo "success!"
+}
+
+symlink_all_the_things() {
+    local dotfiles_dir="${PBJ_DIR}/dotfiles"
+    local system="$(determine_system)"
+
+    if [[ ! -d ~/.config ]]; then
+        mkdir ~/.config
+    fi
+
+    ln -snfv "${dotfiles_dir}/dot.bashrc" ~/.bashrc
+    ln -snfv "${dotfiles_dir}/dot.bash_profile" ~/.bash_profile
+    ln -snfv "${dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+    ln -snfv "${dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
+    ln -snfv "${dotfiles_dir}/dot.config/tmux" ~/.config/tmux
+
+    ln -snfv "${dotfiles_dir}/dot.config/system/${system}/" ~/.config/system
+
+    if [[ "${system}" == "darwin" ]]; then
+        ln -snfv "${dotfiles_dir}/dot.config/aerospace" ~/.config/aerospace
+    fi
+}
+
+install_home_manager() {
+    local profile_name="$(determine_system)"
+
+    if command -v home-manager &>/dev/null; then
+        home-manager --flake "${PBJ_DIR}/nix#${profile_name}" switch
+    else
+        nix run "nixpkgs#home-manager" -- --flake "${PBJ_DIR}/nix#${profile_name}" switch
+    fi
+}
+
+determine_system() {
+    case "$(uname)" in
+    Linux)
+        echo "linux"
+        ;;
+    Darwin)
+        echo "darwin"
+        ;;
+    *)
+        echo "slime"
+        ;;
+    esac
+}
+
+main
