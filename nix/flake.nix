@@ -65,6 +65,46 @@
             ./home/desktop
           ];
         };
+        "work-darwin" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config.allowUnfreePredicate =
+              pkg:
+              builtins.elem (nixpkgs.lib.getName pkg) [
+                "1password-cli"
+              ];
+          };
+          extraSpecialArgs = {
+            username = "pbj";
+            stateVersion = "25.11";
+          };
+          modules = [
+            ./home
+            ./home/darwin
+            ./home/desktop
+            ./home/work
+          ];
+        };
+        "work-linux" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfreePredicate =
+              pkg:
+              builtins.elem (nixpkgs.lib.getName pkg) [
+                "1password-cli"
+              ];
+          };
+          extraSpecialArgs = {
+            username = "coder";
+            stateVersion = "25.11";
+          };
+          modules = [
+            ./home
+            ./home/linux
+            ./home/work
+          ];
+        };
+
       };
     };
 }

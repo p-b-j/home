@@ -4,6 +4,8 @@ set -euo pipefail
 
 PBJ_DIR="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
 
+: "${HOME_MANAGER_PROFILE_PREFIX:-}"
+
 main() {
     if ! command -v nix &>/dev/null; then
         echo "Could not find a nix - please install this first"
@@ -41,7 +43,7 @@ symlink_all_the_things() {
 }
 
 install_home_manager() {
-    local profile_name="$(determine_system)"
+    local profile_name="${HOME_MANAGER_PROFILE_PREFIX}$(determine_system)"
 
     if command -v home-manager &>/dev/null; then
         home-manager --flake "${PBJ_DIR}/nix#${profile_name}" switch
