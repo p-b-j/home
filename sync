@@ -12,9 +12,9 @@ main() {
         exit 1
     fi
 
-    mr -c mrconfig checkout
-
     install_home_manager
+
+    mr -c mrconfig checkout
 
     symlink_all_the_things
 
