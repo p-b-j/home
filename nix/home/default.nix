@@ -12,11 +12,15 @@
   home.packages = with pkgs; [
     bash
     bash-completion
+    clang
+    clang-tools
+    cmake
     curl
     direnv
-    _1password-cli
     gh
     git
+    go
+    gnumake
     mr
     neovim
     openssl
