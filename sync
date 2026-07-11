@@ -4,7 +4,7 @@ set -euo pipefail
 
 PBJ_DIR="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
 
-: "${HOME_MANAGER_PROFILE_PREFIX:-}"
+: "${HOME_MANAGER_PROFILE_PREFIX:=}"
 
 main() {
     if ! command -v nix &>/dev/null; then
