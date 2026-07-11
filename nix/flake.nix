@@ -49,6 +49,7 @@
             ./home
             ./home/linux
             ./home/desktop
+            ./home/personal
           ];
         };
         "darwin" = home-manager.lib.homeManagerConfiguration {
@@ -63,6 +64,7 @@
             ./home
             ./home/darwin
             ./home/desktop
+            ./home/personal
           ];
         };
         "work-darwin" = home-manager.lib.homeManagerConfiguration {
