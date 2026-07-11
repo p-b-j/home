@@ -20,6 +20,7 @@
     gh
     git
     go
+    gopls
     gnumake
     mr
     neovim
