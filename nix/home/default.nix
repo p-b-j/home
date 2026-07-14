@@ -22,6 +22,7 @@
     go
     gopls
     gnumake
+    git-lfs
     mr
     neovim
     openssl
