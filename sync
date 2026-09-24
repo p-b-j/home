@@ -48,7 +48,7 @@ install_home_manager() {
     if command -v home-manager &>/dev/null; then
         home-manager --flake "${PBJ_DIR}/nix#${profile_name}" switch
     else
-        nix run "nixpkgs#home-manager" -- --flake "${PBJ_DIR}/nix#${profile_name}" switch
+        nix run "nixpkgs/nixos-unstable#home-manager" -- --flake "${PBJ_DIR}/nix#${profile_name}" switch
     fi
 }
 
