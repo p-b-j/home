@@ -5,6 +5,8 @@ in
 {
   home.packages = [
     shortcut-mcp-server
+    pkgs._1password-cli
+    pkgs.gws
   ];
   home.sessionPath = [ "$HOME/.local/bin" ];
 }

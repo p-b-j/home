@@ -26,11 +26,12 @@
     mr
     neovim
     openssl
+    pi-coding-agent
     postgresql
     tmux
 
     # lsps
-    lexical
+    beam28Packages.expert
     lua-language-server
 
     # formatters
